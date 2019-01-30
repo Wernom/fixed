@@ -106,7 +106,7 @@ namespace fp {
     constexpr fixed<Int, Frac>::fixed(double x) {
         this->value = static_cast<long long>(std::round(x * std::pow(2, this->fractional_part)));
     }
-    
+
     template<size_t Int, size_t Frac>
     fixed<Int, Frac>::operator float() const {
         return ((float)((this->value / std::pow(2, this->fractional_part))));
@@ -184,6 +184,11 @@ namespace fp {
 
     template<typename Fixed>
     std::string to_string(Fixed f);
+
+    template<typename Fixed>
+    std::string to_string(Fixed f){
+        return std::to_string(f);
+    }
 
     template<typename Fixed>
     std::ostream &operator<<(std::ostream &os, Fixed f);
