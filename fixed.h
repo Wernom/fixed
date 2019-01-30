@@ -95,10 +95,6 @@ namespace fp {
         fixed &operator/=(const fixed<OtherInt, OtherFrac> &other);
     };
 
-    template<size_t Int, size_t Frac>
-    fixed<Int, Frac>::operator float() const {
-            return ((float)((this->value / std::pow(2, this->fractional_part))));
-        }
 
 
     template<size_t Int, size_t Frac>
@@ -109,6 +105,11 @@ namespace fp {
     template<size_t Int, size_t Frac>
     constexpr fixed<Int, Frac>::fixed(double x) {
         this->value = static_cast<long long>(std::round(x * std::pow(2, this->fractional_part)));
+    }
+    
+    template<size_t Int, size_t Frac>
+    fixed<Int, Frac>::operator float() const {
+        return ((float)((this->value / std::pow(2, this->fractional_part))));
     }
 
     template<size_t Int, size_t Frac>
