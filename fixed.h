@@ -18,8 +18,8 @@ namespace fp {
     class fixed {
     public:
 
-        using underlying_type = size_t ;
-        underlying_type  value{};
+        using underlying_type = long long ;
+        underlying_type  value;
         static constexpr std::size_t integer_part = Int;
         static constexpr std::size_t fractional_part = Frac;
 
@@ -97,12 +97,12 @@ namespace fp {
 
     template<size_t Int, size_t Frac>
     constexpr fixed<Int, Frac>::fixed(float x) {
-        this->value = static_cast<underlying_type>(std::round(x * std::pow(2, this->fractional_part)));
+        this->value = static_cast<long long>(std::round(x * std::pow(2, this->fractional_part)));
     }
 
     template<size_t Int, size_t Frac>
     constexpr fixed<Int, Frac>::fixed(double x) {
-        this->value = static_cast<underlying_type>(std::round(x * std::pow(2, this->fractional_part)));
+        this->value = static_cast<long long>(std::round(x * std::pow(2, this->fractional_part)));
     }
 
 
