@@ -111,6 +111,11 @@ namespace fp {
         this->value = static_cast<underlying_type>(std::round(x * std::pow(2, this->fractional_part)));
     }
 
+    template<size_t Int, size_t Frac>
+    fixed<Int, Frac>::operator double() const {
+            return (((double)(this->value)) / std::pow(2, this->fractional_part));
+        }
+
 
 
 /*
