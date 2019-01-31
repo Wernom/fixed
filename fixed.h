@@ -9,6 +9,7 @@
 
 #include <iostream>
 
+//TODO: perte de précision.
 
 namespace fp {
 /*
@@ -18,8 +19,8 @@ namespace fp {
     class fixed {
     public:
 
-        using underlying_type = long long ;
-        underlying_type  value;
+        using underlying_type = long long;
+        underlying_type value;
         static constexpr std::size_t integer_part = Int;
         static constexpr std::size_t fractional_part = Frac;
 
@@ -96,7 +97,6 @@ namespace fp {
     };
 
 
-
     template<size_t Int, size_t Frac>
     constexpr fixed<Int, Frac>::fixed(float x) {
         this->value = static_cast<long long>(std::round(x * std::pow(2, this->fractional_part)));
@@ -109,13 +109,30 @@ namespace fp {
 
     template<size_t Int, size_t Frac>
     fixed<Int, Frac>::operator float() const {
-        return ((float)((this->value / std::pow(2, this->fractional_part))));
+        return ((float) ((this->value / std::pow(2, this->fractional_part))));
     }
 
     template<size_t Int, size_t Frac>
     fixed<Int, Frac>::operator double() const {
-            return (((double)(this->value)) / std::pow(2, this->fractional_part));
-        }
+        return (((double) (this->value)) / std::pow(2, this->fractional_part));
+    }
+
+    template<size_t Int, size_t Frac>
+    fixed<Int, Frac>::fixed(const fixed &other) {
+        double val = double(other);
+        std::cout << "1\n";
+        this->value =  static_cast<long long>(std::round(val * std::pow(2, this->fractional_part)));
+    }
+
+    template<size_t Int, size_t Frac>
+    template<size_t OtherInt, size_t OtherFrac>
+    fixed<Int, Frac>::fixed(const fixed<OtherInt, OtherFrac> &other) {
+        std::cout << "2\n";
+        double val = double(other);
+        this->value =  static_cast<long long>(std::round(val * std::pow(2, this->fractional_part)));
+    }
+
+
 
 
 
@@ -186,7 +203,7 @@ namespace fp {
     std::string to_string(Fixed f);
 
     template<typename Fixed>
-    std::string to_string(Fixed f){
+    std::string to_string(Fixed f) {
         return std::to_string(f);
     }
 
