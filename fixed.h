@@ -120,17 +120,47 @@ namespace fp {
     template<size_t Int, size_t Frac>
     fixed<Int, Frac>::fixed(const fixed &other) {
         double val = double(other);
-        std::cout << "1\n";
-        this->value =  static_cast<long long>(std::round(val * std::pow(2, this->fractional_part)));
+        this->value = static_cast<long long>(std::round(val * std::pow(2, this->fractional_part)));
+    }
+
+    template<size_t Int, size_t Frac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator=(const fixed &other) {//TODO: overflow.
+        this->value = other.value;
+        return *this;
     }
 
     template<size_t Int, size_t Frac>
     template<size_t OtherInt, size_t OtherFrac>
-    fixed<Int, Frac>::fixed(const fixed<OtherInt, OtherFrac> &other) {
-        std::cout << "2\n";
-        double val = double(other);
-        this->value =  static_cast<long long>(std::round(val * std::pow(2, this->fractional_part)));
+    fixed<Int, Frac> &fixed<Int, Frac>::operator=(const fixed<OtherInt, OtherFrac> &other) {
+        if(OtherInt > Int){
+            if(OtherFrac > Frac){
+                fixed<OtherInt, OtherFrac> tmp(other);
+                this->value = tmp.value;
+            }else{
+                fixed<OtherInt, Frac> tmp(other);
+                this->value = tmp.value;
+            }
+        }else{
+            if(OtherFrac > Frac){
+                fixed<Int, OtherFrac> tmp(other);
+                this->value = tmp.value;
+            }else{
+                fixed<Int, Frac> tmp(other);
+                this->value = tmp.value;
+            }
+        }
+        return *this;
     }
+
+
+    template<size_t Int, size_t Frac>
+    template<size_t OtherInt, size_t OtherFrac>
+    fixed<Int, Frac>::fixed(const fixed<OtherInt, OtherFrac> &other) {
+        double val = double(other);
+        this->value = static_cast<long long>(std::round(val * std::pow(2, this->fractional_part)));
+    }
+
+
 
 
 

@@ -26,18 +26,38 @@ TEST(fixedTest, constructorCopy) {
     fp::fixed<8, 8> f(x);
     fp::fixed<8, 8> f1(f);
     EXPECT_EQ(f.value, f1.value);
-    EXPECT_EQ(f.fractional_part, f1.fractional_part);
-    EXPECT_EQ(f.integer_part, f1.integer_part);
+    EXPECT_TRUE(f1.fractional_part == f.fractional_part);//We use EXPECT_TRUE insteed of EXPECT_EQ because it return the error: référence indéfinie vers « fp::fixed<8ul, 8ul>::fractional_part »
+    EXPECT_TRUE(f1.integer_part == f.integer_part);
+}
+
+//Test &fixed<Int, Frac>::operator=(const fixed &other)
+TEST(fixedTest, affectationSameFractionalAndInteger){
+    fp::fixed<8,8> f1(12.34);
+    fp::fixed<8,8> f2(13.24);
+
+    f1 = f2;
+
+    EXPECT_EQ(f1.value, f2.value);
+    EXPECT_EQ(double(f1), double(f2));
+}
+
+TEST(fixedTest, affectationDifferentFractionalAndInteger){
+    fp::fixed<8,12> f1(12.34);
+    fp::fixed<8,8> f2(13.24);
+
+    f1 = f2;
+
+    EXPECT_EQ(double(f1), double(f2));
 }
 
 //Test fixed<Int, Frac>::operator float() const
-//TEST(fixedTest, floatValue) {
-//    double x = 12.42;
-//    fp::fixed<8, 8> f(x);
-//    EXPECT_EQ(f.value, 3180);
-//    EXPECT_NEAR((float) (12.421875), float(f), 0.2);
-//
-//}
+TEST(fixedTest, floatValue) {
+    double x = 12.42;
+    fp::fixed<8, 8> f(x);
+    EXPECT_EQ(f.value, 3180);
+    EXPECT_NEAR((float) (12.421875), float(f), 0.2);
+
+}
 
 //Test fixed<Int, Frac>::operator double() const
 TEST(fixedTest, doubleValue) {
