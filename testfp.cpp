@@ -102,7 +102,8 @@ TEST(fixedTest,moinsEqualDouble){
     double x1 = 12.42;
     fp::fixed<8,8> f1(x1);
     double x2 = 12.42;
-    EXPECT_EQ( 0, (f1-=x2).value);
+    fp::fixed<8,8> f2(x2);
+    EXPECT_EQ( 0, (f1-=f2).value);
 
 }
 
