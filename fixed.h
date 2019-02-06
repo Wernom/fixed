@@ -153,6 +153,12 @@ namespace fp {
     }
 
     template<size_t Int, size_t Frac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator+=(double other) {
+        this->value+=fixed<Int,Frac>(other).value;
+        //return *this;
+    }
+
+    template<size_t Int, size_t Frac>
     template<size_t OtherInt, size_t OtherFrac>
     fixed<Int, Frac>::fixed(const fixed<OtherInt, OtherFrac> &other) {
         std::cout << "2\n";
