@@ -143,7 +143,13 @@ namespace fp {
     fixed<Int, Frac> &fixed<Int, Frac>::operator+=(const fixed &other) {
 
         this->value+=other.value;
-        return *this;
+        //return *this;
+    }
+
+    template<size_t Int, size_t Frac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator+=(float other) {
+        this->value+=fixed<Int,Frac>(other).value;
+        //return *this;
     }
 
     template<size_t Int, size_t Frac>
