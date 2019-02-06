@@ -4,6 +4,21 @@
 // Created by wernom on 23/01/19.
 //
 
+
+
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+
+
+
+
+
 #ifndef FIXED_FIXED_H
 #define FIXED_FIXED_H
 
@@ -154,13 +169,30 @@ namespace fp {
 
 
     template<size_t Int, size_t Frac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator+=(const fixed &other) {
+
+        this->value+=other.value;
+        //return *this;
+    }
+
+    template<size_t Int, size_t Frac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator+=(float other) {
+        this->value+=fixed<Int,Frac>(other).value;
+        //return *this;
+    }
+
+    template<size_t Int, size_t Frac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator+=(double other) {
+        this->value+=fixed<Int,Frac>(other).value;
+        //return *this;
+    }
+
+    template<size_t Int, size_t Frac>
     template<size_t OtherInt, size_t OtherFrac>
     fixed<Int, Frac>::fixed(const fixed<OtherInt, OtherFrac> &other) {
         double val = double(other);
         this->value = static_cast<long long>(std::round(val * std::pow(2, this->fractional_part)));
     }
-
-
 
 
 

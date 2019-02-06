@@ -69,6 +69,33 @@ TEST(fixedTest, doubleValue) {
 }
 
 
+//Test fixed &operator+=(const fixed &other);
+TEST(fixedTest,plusEqualFixed){
+    double x1 = 12.42;
+    fp::fixed<8,8> f1(x1);
+    double x2 = 12.42;
+    fp::fixed<8,8> f2(x2);
+    EXPECT_EQ( 3180+3180, (f1+=f2).value);
+
+}
+
+//Test fixed<Int, Frac> &fixed<Int, Frac>::operator+=(float other)
+TEST(fixedTest,plusEqualFloat){
+    double x1 = 12.42;
+    fp::fixed<8,8> f1(x1);
+    float x2 = 12.42;
+    EXPECT_EQ( 3180+3180, (f1+=x2).value);
+
+}
+
+//Test fixed<Int, Frac> &fixed<Int, Frac>::operator+=(double other)
+TEST(fixedTest,plusEqualDouble){
+    double x1 = 12.42;
+    fp::fixed<8,8> f1(x1);
+    double x2 = 12.42;
+    EXPECT_EQ( 3180+3180, (f1+=x2).value);
+
+}
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
