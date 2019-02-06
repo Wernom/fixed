@@ -169,23 +169,58 @@ namespace fp {
 
 
     template<size_t Int, size_t Frac>
-    fixed<Int, Frac> &fixed<Int, Frac>::operator+=(const fixed &other) {
+    template<size_t OtherInt, size_t OtherFrac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator+=(const fixed<OtherInt, OtherFrac> &other) {
+        long tmpV;
+        if(OtherInt > Int){
+            if(OtherFrac > Frac){
+                fixed<OtherInt, OtherFrac> tmp(other);
+                tmpV=this->value + tmp.value;
+            }else{
+                fixed<OtherInt, Frac> tmp(other);
+                tmpV=this->value + tmp.value;
+            }
+        }else{
+            if(OtherFrac > Frac){
+                fixed<Int, OtherFrac> tmp(other);
+                tmpV=this->value + tmp.value;
+            }else{
+                fixed<Int, Frac> tmp(other);
+                tmpV=this->value + tmp.value;
+            }
+        }
+       /* if (tmpV<LONG_MIN || tmpV>LONG_MAX){
+            throw
+        }*/   this->value=tmpV;
 
-        this->value+=other.value;
-        //return *this;
+        return *this;
     }
+
 
     template<size_t Int, size_t Frac>
     fixed<Int, Frac> &fixed<Int, Frac>::operator+=(float other) {
         this->value+=fixed<Int,Frac>(other).value;
-        //return *this;
+        return *this;
     }
 
     template<size_t Int, size_t Frac>
     fixed<Int, Frac> &fixed<Int, Frac>::operator+=(double other) {
         this->value+=fixed<Int,Frac>(other).value;
-        //return *this;
+        return *this;
     }
+
+    template<size_t Int, size_t Frac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator-=(const fixed &other) {
+        this->value-=other.value;
+        return *this;
+    }
+
+    template<size_t Int, size_t Frac>
+    fixed<Int,Frac> &fixed<Int, Frac>::operator+=(const fixed &other) {
+        this->value+=other.value;
+    }
+
+
 
     template<size_t Int, size_t Frac>
     template<size_t OtherInt, size_t OtherFrac>
