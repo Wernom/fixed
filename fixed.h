@@ -141,17 +141,9 @@ namespace fp {
 
     template<size_t Int, size_t Frac>
     fixed<Int, Frac> &fixed<Int, Frac>::operator+=(const fixed &other) {
-        this->value=(this->value+other.value)/std::min(this->fractional_part,other.fractional_part);
-    }
 
-    template<size_t Int, size_t Frac>
-    fixed<Int, Frac> &fixed<Int, Frac>::operator+=(float other) {
-        this->value=(this->value+other)/this->fractional_part;
-    }
-
-    template<size_t Int, size_t Frac>
-    fixed<Int, Frac> &fixed<Int, Frac>::operator+=(double other) {
-        this->value=(this->value+other)/this->fractional_part;
+        this->value+=other.value;
+        return *this;
     }
 
     template<size_t Int, size_t Frac>
