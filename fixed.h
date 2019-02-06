@@ -98,12 +98,12 @@ namespace fp {
 
 
     template<size_t Int, size_t Frac>
-    constexpr fixed<Int, Frac>::fixed(float x) {
+    constexpr fixed<Int, Frac>::fixed(float x) {//TODO: marche pas si Int + Frac = 0
         this->value = static_cast<long long>(std::round(x * std::pow(2, this->fractional_part)));
     }
 
     template<size_t Int, size_t Frac>
-    constexpr fixed<Int, Frac>::fixed(double x) {
+    constexpr fixed<Int, Frac>::fixed(double x) {//TODO: marche pas si Int + Frac = 0
         this->value = static_cast<long long>(std::round(x * std::pow(2, this->fractional_part)));
     }
 
