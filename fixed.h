@@ -4,6 +4,21 @@
 // Created by wernom on 23/01/19.
 //
 
+
+
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+// TO DO: MOINS UNAIRE DU CMI SUCEUR DE CHIBRE
+
+
+
+
+
 #ifndef FIXED_FIXED_H
 #define FIXED_FIXED_H
 
@@ -121,7 +136,22 @@ namespace fp {
     fixed<Int, Frac>::fixed(const fixed &other) {
         double val = double(other);
         std::cout << "1\n";
-        this->value =  static_cast<long long>(std::round(val * std::pow(2, this->fractional_part)));
+        this->value = static_cast<long long>(std::round(val * std::pow(2, this->fractional_part)));
+    }
+
+    template<size_t Int, size_t Frac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator+=(const fixed &other) {
+        this->value=(this->value+other.value)/std::min(this->fractional_part,other.fractional_part);
+    }
+
+    template<size_t Int, size_t Frac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator+=(float other) {
+        this->value=(this->value+other)/this->fractional_part;
+    }
+
+    template<size_t Int, size_t Frac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator+=(double other) {
+        this->value=(this->value+other)/this->fractional_part;
     }
 
     template<size_t Int, size_t Frac>
@@ -129,7 +159,7 @@ namespace fp {
     fixed<Int, Frac>::fixed(const fixed<OtherInt, OtherFrac> &other) {
         std::cout << "2\n";
         double val = double(other);
-        this->value =  static_cast<long long>(std::round(val * std::pow(2, this->fractional_part)));
+        this->value = static_cast<long long>(std::round(val * std::pow(2, this->fractional_part)));
     }
 
 
@@ -198,6 +228,12 @@ namespace fp {
 */
     template<typename Fixed>
     Fixed sqrt(Fixed f);
+
+    template<typename Fixed>
+    Fixed sqrt(Fixed f) {
+
+
+    }
 
     template<typename Fixed>
     std::string to_string(Fixed f);

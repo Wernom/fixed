@@ -21,6 +21,7 @@ TEST(fixedTest, constructorDouble) {
 }
 
 //Test fixed<Int, Frac>::fixed(const fixed &other)
+
 TEST(fixedTest, constructorCopy) {
     float x = 12.42;
     fp::fixed<8, 8> f(x);
@@ -31,13 +32,12 @@ TEST(fixedTest, constructorCopy) {
 }
 
 //Test fixed<Int, Frac>::operator float() const
-//TEST(fixedTest, floatValue) {
-//    double x = 12.42;
-//    fp::fixed<8, 8> f(x);
-//    EXPECT_EQ(f.value, 3180);
-//    EXPECT_NEAR((float) (12.421875), float(f), 0.2);
-//
-//}
+TEST(fixedTest, floatValue){
+    double x = 12.42;
+    fp::fixed<8,8> f(x);
+    EXPECT_EQ(f.value, 3180);
+    EXPECT_NEAR((float)(12.421875),float(f),0.2);
+}
 
 //Test fixed<Int, Frac>::operator double() const
 TEST(fixedTest, doubleValue) {
@@ -48,6 +48,16 @@ TEST(fixedTest, doubleValue) {
 
 }
 
+
+//Test fixed &operator+=(const fixed &other); MEME TAILLE
+TEST(fixedTest,plusEqual){
+    double x1 = 21.0;
+    fp::fixed<8,8> f1(x1);
+    double x2 = 21.0;
+    fp::fixed<8,8> f2(x2);
+    EXPECT_EQ( 42.0, (f1+=f2).value);
+
+}
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
