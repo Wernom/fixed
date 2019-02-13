@@ -288,8 +288,6 @@ namespace fp {
 
     template<std::size_t I1, std::size_t F1, std::size_t I2, std::size_t F2>
     fixed<std::max(I1, I2), std::max(F1, F2)> operator+(fixed<I1, F1> lhs, fixed<I2, F2> rhs) {
-        if (double(lhs) + double(rhs) > )
-
         return fixed<std::max(I1, I2), std::max(F1, F2)>(double(lhs) + double(rhs));
     }
 
