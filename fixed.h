@@ -190,10 +190,10 @@ namespace fp {
             }
         }
         if (tmpV > 0x7FFF) {
-            throw std::overflow_error("Overflow !");
+            throw std::overflow_error("");
         }
         if (tmpV < -1 * 0x8000) {
-            throw std::overflow_error("Overflow !");
+            throw std::overflow_error("");
         }
         this->value = tmpV;
         return *this;
@@ -203,10 +203,10 @@ namespace fp {
     template<size_t Int, size_t Frac>
     fixed<Int, Frac> &fixed<Int, Frac>::operator+=(float other) {
         long long tmp = this->value+fixed<Int, Frac>(other).value;
-        if (tmp > 0x7FFF) {
+        if (tmp > (pow(2,this->integer_part-1)-pow(2,-fractional_part))){
             throw std::overflow_error("Overflow !");
         }
-        if (tmp < -1 * 0x8000) {
+        if (tmp < -pow(2,integer_part-1)) {
             throw std::overflow_error("Overflow !");
         }
         this->value = tmp;
@@ -221,9 +221,17 @@ namespace fp {
 
     template<size_t Int, size_t Frac>
     fixed<Int, Frac> &fixed<Int, Frac>::operator-=(const fixed &other) {
-        this->value -= other.value;
+        long long tmp = this->value+fixed<Int, Frac>(other).value;
+        if (tmp > (pow(2,this->integer_part-1)-pow(2,-fractional_part))){
+            throw std::overflow_error("Overflow !");
+        }
+        if (tmp < -pow(2,integer_part-1)) {
+            throw std::overflow_error("Overflow !");
+        }
+        this->value = tmp;
         return *this;
     }
+
 
     template<size_t Int, size_t Frac>
     fixed<Int, Frac> &fixed<Int, Frac>::operator+=(const fixed &other) {
