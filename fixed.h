@@ -139,23 +139,7 @@ namespace fp {
     template<size_t Int, size_t Frac>
     template<size_t OtherInt, size_t OtherFrac>
     fixed<Int, Frac> &fixed<Int, Frac>::operator=(const fixed<OtherInt, OtherFrac> &other) {
-        if(OtherInt > Int){
-            if(OtherFrac > Frac){
-                fixed<OtherInt, OtherFrac> tmp(other);
-                this->value = tmp.value;
-            }else{
-                fixed<OtherInt, Frac> tmp(other);
-                this->value = tmp.value;
-            }
-        }else{
-            if(OtherFrac > Frac){
-                fixed<Int, OtherFrac> tmp(other);
-                this->value = tmp.value;
-            }else{
-                fixed<Int, Frac> tmp(other);
-                this->value = tmp.value;
-            }
-        }
+        this->value = other.value;
         return *this;
     }
 
