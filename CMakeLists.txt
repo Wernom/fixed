@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(testfp
         testfp.cpp
         googletest/googletest/src/gtest-all.cc
-        fixed.cpp fixed.h)
+        fixed.h)
 
 target_include_directories(testfp
         PRIVATE
@@ -21,4 +21,4 @@ target_link_libraries(testfp
         ${CMAKE_THREAD_LIBS_INIT}
         )
 
-add_executable(fixed main.cpp fixed.cpp fixed.h)
+add_executable(fixed main.cpp fixed.h)
