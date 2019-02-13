@@ -170,25 +170,32 @@ namespace fp {
         this->value = static_cast<long long>(std::round(val * std::pow(2, this->fractional_part)));
     }
 
-
-
+    bool isOverflow (double value, size_t integer_part, size_t fractional_part){
+        return value > std::pow(-2, integer_part - 1) || value < std::pow(2, integer_part - 1) - std::pow(2, -fractional_part);
+    }
 
 
 /*
 * arithmetic  operators
 */
+
+    template<std::size_t I1, std::size_t F1, std::size_t I2, std::size_t F2>
+    fixed<std::max(I1, I2), std::max(F1, F2)> operator+(fixed<I1, F1> lhs, fixed<I2, F2> rhs);
 //    template <std:: size_t I1, std:: size_t F1, std:: size_t I2, std:: size_t F2>
-//    implementation-defined
-//    operator+(fixed <I1, F1> lhs , fixed <I2, F2> rhs);
-//    template <std:: size_t I1, std:: size_t F1, std:: size_t I2, std:: size_t F2>
-//    implementation-defined
-//    operator-(fixed <I1, F1> lhs , fixed <I2, F2> rhs);
+//    implementation-defined operator-(fixed <I1, F1> lhs , fixed <I2, F2> rhs);
 //    template<std:: size_t I1, std:: size_t F1, std:: size_t I2, std:: size_t F2>
-//    implementation-defined
-//    operator*(fixed <I1, F1> lhs , fixed <I2, F2> rhs);
+//    implementation-defined operator*(fixed <I1, F1> lhs , fixed <I2, F2> rhs);
 //    template<std:: size_t I1, std:: size_t F1, std:: size_t I2, std:: size_t F2>
-//    implementation-defined
-//    operator/(fixed <I1, F1> lhs , fixed <I2, F2> rhs);
+//    implementation-defined operator/(fixed <I1, F1> lhs , fixed <I2, F2> rhs);
+
+    template<std::size_t I1, std::size_t F1, std::size_t I2, std::size_t F2>
+    fixed<std::max(I1, I2), std::max(F1, F2)> operator+(fixed<I1, F1> lhs, fixed<I2, F2> rhs) {
+        if (double(lhs) + double(rhs) > )
+
+        return fixed<std::max(I1, I2), std::max(F1, F2)>(double(lhs) + double(rhs));
+    }
+
+
 /*
 * comparison  operators
 */
