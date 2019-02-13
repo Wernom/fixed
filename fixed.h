@@ -236,13 +236,13 @@ namespace fp {
 
 
     template<size_t Int, size_t Frac>
-    fixed<Int, Frac> &fixed<Int, Frac>::operator-=(float other) {
+    fixed<Int, Frac> &fixed<Int, Frac>::operator-=(float other) {//TODO:overflow
         this->value += fixed<Int, Frac>(other).value;
         return *this;
     }
 
     template<size_t Int, size_t Frac>
-    fixed<Int, Frac> &fixed<Int, Frac>::operator-=(double other) {
+    fixed<Int, Frac> &fixed<Int, Frac>::operator-=(double other) {//TODO:overflow
         this->value += fixed<Int, Frac>(other).value;
         return *this;
     }
@@ -268,8 +268,8 @@ namespace fp {
         this->value = static_cast<long long>(std::round(val * std::pow(2, this->fractional_part)));
     }
 
-    bool isOverflow (double value, size_t integer_part, size_t fractional_part){
-        return value > std::pow(-2, integer_part - 1) || value < std::pow(2, integer_part - 1) - std::pow(2, -fractional_part);
+    bool isOverflow (long long value, size_t integer_part, size_t fractional_part){
+        return value > std::pow(-2, integer_part - 1) || std::floor(std::pow(2, integer_part - 1) - 1/std::pow(2, fractional_part));
     }
 
 
