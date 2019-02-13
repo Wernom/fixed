@@ -145,23 +145,121 @@ namespace fp {
 
 
     template<size_t Int, size_t Frac>
-    fixed<Int, Frac> &fixed<Int, Frac>::operator+=(const fixed &other) {
-
-        this->value+=other.value;
-        //return *this;
+    template<size_t OtherInt, size_t OtherFrac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator+=(const fixed<OtherInt, OtherFrac> &other) {
+        long tmpV;
+        if (OtherInt > Int) {
+            if (OtherFrac > Frac) {
+                fixed<OtherInt, OtherFrac> tmp(other);
+                tmpV = this->value + tmp.value;
+            } else {
+                fixed<OtherInt, Frac> tmp(other);
+                tmpV = this->value + tmp.value;
+            }
+        } else {
+            if (OtherFrac > Frac) {
+                fixed<Int, OtherFrac> tmp(other);
+                tmpV = this->value + tmp.value;
+            } else {
+                fixed<Int, Frac> tmp(other);
+                tmpV = this->value + tmp.value;
+            }
+        }
+        if (tmpV > (pow(2,this->integer_part-1)-pow(2,-fractional_part))){
+            throw std::overflow_error("Overflow !");
+        }
+        if (tmpV < -pow(2,integer_part-1)) {
+            throw std::overflow_error("Overflow !");
+        }
+        this->value = tmpV;
+        return *this;
     }
+
 
     template<size_t Int, size_t Frac>
     fixed<Int, Frac> &fixed<Int, Frac>::operator+=(float other) {
-        this->value+=fixed<Int,Frac>(other).value;
-        //return *this;
+        this->value += fixed<Int, Frac>(other).value;
+        return *this;
     }
 
     template<size_t Int, size_t Frac>
     fixed<Int, Frac> &fixed<Int, Frac>::operator+=(double other) {
-        this->value+=fixed<Int,Frac>(other).value;
-        //return *this;
+        this->value += fixed<Int, Frac>(other).value;
+        return *this;
     }
+
+    template<size_t Int, size_t Frac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator+=(const fixed &other) {
+        long long tmp=this->value+other.value;
+        if (tmp > (pow(2,this->integer_part-1)-pow(2,-fractional_part))){
+            throw std::overflow_error("Overflow !");
+        }
+        if (tmp < -pow(2,integer_part-1)) {
+            throw std::overflow_error("Overflow !");
+        }
+        this->value = tmp;
+        return *this;
+    }
+
+
+
+    template<size_t Int, size_t Frac>
+    template<size_t OtherInt, size_t OtherFrac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator-=(const fixed<OtherInt, OtherFrac> &other) {
+        long tmpV;
+        if (OtherInt > Int) {
+            if (OtherFrac > Frac) {
+                fixed<OtherInt, OtherFrac> tmp(other);
+                tmpV = this->value + tmp.value;
+            } else {
+                fixed<OtherInt, Frac> tmp(other);
+                tmpV = this->value + tmp.value;
+            }
+        } else {
+            if (OtherFrac > Frac) {
+                fixed<Int, OtherFrac> tmp(other);
+                tmpV = this->value + tmp.value;
+            } else {
+                fixed<Int, Frac> tmp(other);
+                tmpV = this->value + tmp.value;
+            }
+        }
+        if (tmpV > (pow(2,this->integer_part-1)-pow(2,-fractional_part))){
+            throw std::overflow_error("Overflow !");
+        }
+        if (tmpV < -pow(2,integer_part-1)) {
+            throw std::overflow_error("Overflow !");
+        }
+        this->value = tmpV;
+        return *this;
+    }
+
+
+    template<size_t Int, size_t Frac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator-=(float other) {
+        this->value += fixed<Int, Frac>(other).value;
+        return *this;
+    }
+
+    template<size_t Int, size_t Frac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator-=(double other) {
+        this->value += fixed<Int, Frac>(other).value;
+        return *this;
+    }
+
+    template<size_t Int, size_t Frac>
+    fixed<Int, Frac> &fixed<Int, Frac>::operator-=(const fixed &other) {
+        long long tmp=this->value+other.value;
+        if (tmp > (pow(2,this->integer_part-1)-pow(2,-fractional_part))){
+            throw std::overflow_error("Overflow !");
+        }
+        if (tmp < -pow(2,integer_part-1)) {
+            throw std::overflow_error("Overflow !");
+        }
+        this->value = tmp;
+        return *this;
+    }
+
 
     template<size_t Int, size_t Frac>
     template<size_t OtherInt, size_t OtherFrac>

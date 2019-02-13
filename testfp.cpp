@@ -79,6 +79,46 @@ TEST(fixedTest,plusEqualFixed){
 
 }
 
+
+
+//Test fixed &operator+=(const fixed &other) not same int;
+TEST(fixedTest,plusEqualFixedDifferentInt){
+    double x1 = 12.42;
+    fp::fixed<13,8> f1(x1);
+    double x2 = 12.42;
+    fp::fixed<8,8> f2(x2);
+    f1+=f2;
+    EXPECT_EQ( 3180+3180, f1.value);
+}
+
+//Test fixed &operator+=(const fixed &other) not same frac OVERFLOW
+TEST(fixedTest,plusEqualFixedDifferentFracOver){
+    bool ok=false;
+    double x1 = 12.42;
+    fp::fixed<8,13> f1(x1);
+    double x2 = 12.42;
+    fp::fixed<8,8> f2(x2);
+    try {
+        f1 += f2;
+    }
+    catch(std::overflow_error){
+        ok=true;
+    }
+    EXPECT_TRUE(ok);
+}
+
+
+//Test fixed &operator+=(const fixed &other) not same frac Not overflow;
+TEST(fixedTest,plusEqualFixedDifferentFrac){
+    double x1 = 12.42;
+    fp::fixed<8,4> f1(x1);
+    double x2 = 12.42;
+    fp::fixed<8,8> f2(x2);
+    f1+=f2;
+    EXPECT_EQ( 199+3180, f1.value);
+}
+
+
 //Test fixed<Int, Frac> &fixed<Int, Frac>::operator+=(float other)
 TEST(fixedTest,plusEqualFloat){
     double x1 = 12.42;
@@ -96,6 +136,25 @@ TEST(fixedTest,plusEqualDouble){
     EXPECT_EQ( 3180+3180, (f1+=x2).value);
 
 }
+
+//Test fixed<Int, Frac> &fixed<Int, Frac>::operator-=(double other)
+TEST(fixedTest,moinsEqualDouble){
+    double x1 = 12.42;
+    fp::fixed<8,8> f1(x1);
+    double x2 = 12.42;
+    fp::fixed<8,8> f2(x2);
+    EXPECT_EQ( 0, (f1-=f2).value);
+
+}
+
+
+
+
+
+
+
+
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
