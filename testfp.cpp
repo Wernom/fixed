@@ -102,6 +102,7 @@ TEST(fixedTest,plusEqualFixedDifferentFracOver){
         f1 += f2;
     }
     catch(std::overflow_error){
+
         ok=true;
     }
     EXPECT_TRUE(ok);
@@ -148,7 +149,14 @@ TEST(fixedTest,moinsEqualDouble){
 }
 
 
+//Test fixed<std::max(I1, I2), std::max(F1, F2)> operator+(fixed<I1, F1> lhs, fixed<I2, F2> rhs)
+TEST(fixedTest, plus){
+    fp::fixed<8, 8> f1(1.111);
+    fp::fixed<8, 8> f2(2.22);
+    f2 = f1 + f2;
 
+    EXPECT_NEAR((double) (3.33), float(f2), 0.05);
+}
 
 
 
