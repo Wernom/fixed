@@ -149,6 +149,16 @@ TEST(fixedTest,moinsEqualDouble){
 
 
 
+//Test fixed<Int, Frac> &fixed<Int, Frac>::operator-=(double other)
+TEST(fixedTest,toString){
+   double x1=12.42;
+   fp::fixed<8,8> f1(x1);
+   std::string myString=fp::to_string(f1);
+   std::cout<< myString << std::endl;
+   EXPECT_TRUE(true);
+
+
+}
 
 
 
