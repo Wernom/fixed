@@ -26,7 +26,7 @@ namespace fp {
     class fixed {
     public:
 
-        using underlying_type = long long;
+        using underlying_type = long long; //long long étant la plus grande valeurs entiere pouvant etre stocké dans la machine
         underlying_type value;
         static constexpr std::size_t integer_part = Int;
         static constexpr std::size_t fractional_part = Frac;
@@ -434,19 +434,44 @@ namespace fp {
         static constexpr Fixed pi();
     };
 
-//    template<typename Fixed>
-//    constexpr Fixed fixed_traits<Fixed>::lowest() {
-////        Fixed tmp (0.0);
-////        std::cout << tmp.integer_part << std::endl;
-////        std::cout << std::pow(-2, tmp.integer_part - 1) << std::endl;
-////        std::cout << std::pow(-2, tmp.integer_part - 1) / std::pow(2, tmp.fractional_part) << std::endl;
-////        Fixed fixed1(std::pow(-2, tmp.integer_part - 1) / std::pow(2, tmp.fractional_part));
-////        std::cout << fixed1.value << std::endl;
-////        return fixed1;
-////        return (((double) (this->value)) / std::pow(2, this->fractional_part));
-////        return value < -std::pow(-2, integer_part - 1) || value > std::floor(std::pow(2, integer_part - 1) - 1/std::pow(2, fractional_part));
-//
-//    }
+    template<typename Fixed>
+    constexpr Fixed fixed_traits<Fixed>::lowest() {
+        //On retourn un fixed qui vaut moins deux puissance le nombre de bit de la partie fractionnaire moins un.
+        Fixed res(std::pow(-2, Fixed::integer_part - 1));
+        return res;
+    }
+
+    template<typename Fixed>
+    constexpr Fixed fixed_traits<Fixed>::min() {
+        //La valeur la plus petite positive correspond à la résolution du nombre fixé soit deux puissance moins le nombre de bit de la partie fractionnaire.
+        Fixed res(1/std::pow(2, Fixed::fractional_part));
+        return res;
+    }
+
+    template<typename Fixed>
+    constexpr Fixed fixed_traits<Fixed>::max() {
+        //On retourn un fixed qui vaut deux puissance le nombre de bit de la partie entiere moins un le tout moins deux puissance moins la partie fractionnaire.
+        Fixed res(std::pow(2, Fixed::integer_part - 1) - 1/std::pow(2, Fixed::fractional_part));
+        return res;
+    }
+
+    template<typename Fixed>
+    constexpr Fixed fixed_traits<Fixed>::zero() {
+        Fixed res(0);
+        return res;
+    }
+
+    template<typename Fixed>
+    constexpr Fixed fixed_traits<Fixed>::one() {
+        Fixed res(1);
+        return res;
+    }
+
+    template<typename Fixed>
+    constexpr Fixed fixed_traits<Fixed>::pi() {
+        Fixed res(M_PI);
+        return res;
+    }
 
 /*
 * functions
