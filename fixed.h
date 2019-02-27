@@ -477,7 +477,14 @@ namespace fp {
 * functions
 */
     template<typename Fixed>
-    Fixed sqrt(Fixed f);
+    Fixed sqrt(Fixed f){
+        double root=double(f);
+        if(root<0){
+            throw std::domain_error("");
+        }
+        Fixed rootRes(std::sqrt(root));
+        return rootRes;
+    }
 
     template<typename Fixed>
     std::string to_string(Fixed f);
@@ -489,5 +496,12 @@ namespace fp {
 
     template<typename Fixed>
     std::ostream &operator<<(std::ostream &os, Fixed f);
+
+    template<typename Fixed>
+    std::ostream &operator<<(std::ostream &os, Fixed f){
+        std::string tmp=to_string(f);
+        os.write(tmp.c_str(),tmp.length());
+        return os;
+    };
 }
 #endif //FIXED_FIXED_H
