@@ -484,7 +484,7 @@ namespace fp {
 
     template<typename Fixed>
     std::string to_string(Fixed f) {
-        return std::to_string(f);
+        return std::to_string(double(f));
     }
 
     template<typename Fixed>

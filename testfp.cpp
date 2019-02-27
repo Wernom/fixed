@@ -137,6 +137,14 @@ TEST(fixedTest, moinsEqualDouble) {
 
 }
 
+//Test fixed<Int, Frac> &fixed<Int, Frac>::operator-=(double other)
+TEST(fixedTest,toString){
+    double x1=12.42;
+    fp::fixed<8,8> f1(x1);
+    std::string myString=fp::to_string(f1);
+    std::cout<< myString << std::endl;
+    EXPECT_TRUE(true);
+}
 
 //Test fixed<std::max(I1, I2), std::max(F1, F2)> operator+(fixed<I1, F1> lhs, fixed<I2, F2> rhs)
 TEST(fixedTest, plus) {
